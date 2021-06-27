@@ -2,12 +2,16 @@ const express = require('express');
 const jwt       = require('jsonwebtoken');
 const router = express.Router();
 
-const { signUp, 
+const { consultUser,
+        signUp, 
         signUpIMG,
         login,
         update,
         verifyToken} = require("../controllers/userController")
         
+
+router.get("/:ID", consultUser);
+
 router.post('/signup', signUp, (req, res) =>{
 
 })

@@ -12,6 +12,21 @@ const upload = multer({
     storage: storage
 })
 
+let consultUser = (req, res) => {
+    const query = `CALL spConsultUser(?)`;
+    const {ID}  = req.params;
+
+    connection.query(query, [ID], (err, rows, fields) =>{
+            if(err) throw err
+                if(rows[0]){
+                    res.json(rows[0]);
+                }else{
+                    res.json({Status: 'El usuario no existe'})
+                }
+    })
+
+}
+
 let signUp = (req, res) =>{
     const query = `CALL spInsertUser(?, ?, ?, ?, ?, ?, ?)`;
     const {CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL } = req.body;
@@ -102,6 +117,7 @@ function verifyToken(req, res, next){
 }
 
 module.exports = {
+    consultUser,
     signUp,
     signUpIMG,
     login,
