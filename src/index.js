@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const morgan = require("morgan");
+const morgan = require("morgan"); //Requerir "morgan", dependencia la cual da mensajes de estatus dependiendo de la request.
 
 
 const vs = '/api/v1/';
 
 // Middlewares
 app.use(express.json());
-app.use(morgan("combined"));
+app.use(morgan("combined")); //"combined" da un output log detallado. A diferencia de otras opciones como "dev" que son mas concizas.
 
 app.set('port', process.env.PORT || 3000);
 

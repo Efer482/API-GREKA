@@ -10,7 +10,7 @@ const { consultUser,
         verifyToken} = require("../controllers/userController")
         
 
-router.get("/:ID", consultUser);
+router.get("/:ID", consultUser); //GET request de consulta de un usuario especifico, haciendo uso de la ID.
 
 router.post('/signup', signUp, (req, res) =>{
 

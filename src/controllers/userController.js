@@ -12,10 +12,12 @@ const upload = multer({
     storage: storage
 })
 
+//Consultar un usuario especifico con la ID de este.
 let consultUser = (req, res) => {
-    const query = `CALL spConsultUser(?)`;
-    const {ID}  = req.params;
+    const query = `CALL spConsultUser(?)`;      //Procedimiento almacenado.
+    const {ID}  = req.params;                   //Request el parametro ID.
 
+    //Obtener JSON de el usuario especificado
     connection.query(query, [ID], (err, rows, fields) =>{
             if(err) throw err
                 if(rows[0]){
