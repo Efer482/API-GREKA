@@ -30,10 +30,10 @@ let consultUser = (req, res) => {
 }
 
 let signUp = (req, res) =>{
-    const query = `CALL spInsertUser(?, ?, ?, ?, ?, ?, ?)`;
-    const {CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL } = req.body;
+    const query = `CALL spInsertUser(?, ?, ?, ?, ?)`;
+    const {CLAVE, EMAIL, NICKNAME, DATA, ROL } = req.body;
     var USER_ID;
-    connection.query(query, [CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL], (err, rows, fields) => {
+    connection.query(query, [CLAVE, EMAIL, NICKNAME, DATA, ROL], (err, rows, fields) => {
         if(!err){
             USER_ID = rows[0]
             res.json({Status: 'Usuario agregado'})
@@ -83,15 +83,14 @@ let login = (req, res) =>{
     jwt.sign({user: user}, 'secretkey', /*{expiresIn: '32s'},*/ (err, token) =>{
         res.json({
             token:  token
-        }
-)
+        })
     })
 }
 
 let update = (req, res) =>{
-    const query = `CALL spUpdateUser(?, ?, ?, ?, ?, ?, ?, ?)`;
-    const { ID, CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL } = req.body;
-    connection.query(query, [ID, CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL], (err, rows, fields) => {
+    const query = `CALL spUpdateUser(?, ?, ?, ?, ?, ?)`;
+    const { ID, CLAVE, EMAIL, NICKNAME, DATA, ROL } = req.body;
+    connection.query(query, [ID, CLAVE, EMAIL, NICKNAME, DATA, ROL], (err, rows, fields) => {
         if(!err){
             res.json({Status: 'Usuario actualizado'})
         }else{
