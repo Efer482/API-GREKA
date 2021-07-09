@@ -23,6 +23,7 @@ const premium = require('./routes/premium');
 const forum = require('./routes/forum');
 const participantForum = require('./routes/participantForum');
 const commentForum = require('./routes/commentForum');
+const responseForum = require('./routes/responseForum');
 const { get } = require('./routes/books');
 
 // ejecuta las rutas de la api
@@ -36,6 +37,7 @@ app.use('/premium', premium);
 app.use('/forum', forum);
 app.use('/participantForum', participantForum);
 app.use('/commentForum', commentForum);
+app.use('/responseForum', responseForum);
 app.use('/', (req, res) => {
 	res.status(404).send({
 		ok: false,

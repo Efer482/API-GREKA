@@ -1,9 +1,9 @@
 const conection = require('../database');
 
-// funcion que muestra todos los comentarios del foro
-let consultComments = (req, res) => {
+// trae todas las respuestas de un comentario
+let consultResponse = (req, res) => {
     const {id} = req.params;
-    const query = 'CALL spConsultCommentForum(?)';
+    const query = 'CALL spConsultResponseForum(?)';
     conection.query(query, [id], (err, rows, fields) => {
         if (err) {
             console.log(err);
@@ -13,24 +13,24 @@ let consultComments = (req, res) => {
     });
 };
 
-// funcion que crea un comentario
-let insertComment = (req, res) => {
-    const {idForum, comment, idUser} = req.body;
-    const query = 'CALL spInsertCommentForum(?, ?, ?)';
-    conection.query(query, [idForum, comment, idUser], (err, rows, fields) => {
+// crea una respuesta de un comentario
+let insertResponse = (req, res) => {
+    const {idComment, comment, idUser} = req.body;
+    const query = 'CALL spInsertResponseForum(?, ?, ?)';
+    conection.query(query, [idComment, comment, idUser], (err, rows, fields) => {
         if (err) {
             console.log(err);
         } else {
-            res.json({status: 'Comentario agregado'});
+            res.json({status: 'Respuesta agregada'});
         }
     });
 };
 
-// funcion que actualiza un comentario
-let updateComment = (req, res) => {
-    const {comment} = req.body;
+// edita una respuesta de un comentario
+let updateResponse = (req, res) => {
     const {id} = req.params;
-    const query = 'CALL spUpdateCommentForum(?, ?)';
+    const {comment} = req.body;
+    const query = 'CALL spUpdateResponseForum(?, ?)';
     conection.query(query, [comment, id], (err, rows, fields) => {
         if (err) {
             console.log(err);
@@ -40,10 +40,10 @@ let updateComment = (req, res) => {
     });
 };
 
-// funcion que elimina un comentario
-let deleteComment = (req, res) => {
+// elimina una respuesta de un comentario
+let deleteResponse = (req, res) => {
     const {id} = req.params;
-    const query = 'CALL spDeleteCommentForum(?)';
+    const query = 'CALL spDeleteResponseForum(?)';
     conection.query(query, [id], (err, rows, fields) => {
         if (err) {
             console.log(err);
@@ -55,8 +55,8 @@ let deleteComment = (req, res) => {
 
 // permite que el archivo sea llamado desde otro archivo
 module.exports = {
-    insertComment,
-    consultComments,
-    updateComment,
-    deleteComment
+    consultResponse,
+    insertResponse,
+    updateResponse,
+    deleteResponse
 };
