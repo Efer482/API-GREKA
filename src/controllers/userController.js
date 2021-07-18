@@ -56,7 +56,7 @@ let signUpIMG   = (req, res) =>{
     if(!PROFILE_IMG){
         PROFILE_IMG =   "PROFILE_DEFAULT.jpg";
     }
-    const query = `CALL 	spInsertIMG(?, ?,)`;
+    const query = 'CALL spInsertIMG(?, ?,)';
     connection.query(query, [ID, PROFILE_IMG], (err, rows, fields) =>{
         if(!err){
             res.json({Status: 'Imagen agregada'})
@@ -69,6 +69,7 @@ let signUpIMG   = (req, res) =>{
     
     res.json(req.file)
 }
+
 let login = (req, res) =>{
     let user;
     const query = `CALL spLoginUser(?, ?)`;
