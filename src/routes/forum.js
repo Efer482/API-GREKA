@@ -4,6 +4,7 @@ const router = express.Router();
 // importa las funciones que tiene el controlador
 const { consultForums,
         consultForum,
+        consultForumUser,
         createForum,
         updateForum,
         deleteForum} = require('../controllers/forumController');
@@ -17,8 +18,11 @@ router.get('/:titleForum', consultForum, (req, res) => {});
 // crea un foro
 router.post('/', createForum, (req, res) => {});
 
+// trae los foros de cada usuario
+router.get('/user/:id', consultForumUser, (req, res) => {});
+
 // actualiza un foro
-router.put('/:id', updateForum, (req, res) => {});
+router.put('/', updateForum, (req, res) => {});
 
 // elimina un foro
 router.delete('/:id', deleteForum, (req, res) => {});
