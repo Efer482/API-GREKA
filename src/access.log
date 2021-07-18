@@ -67,3 +67,5 @@
 ::ffff:192.168.0.10 - - [18/Jul/2021:21:29:11 +0000] "GET /forum HTTP/1.1" 200 440 "-" "Dalvik/2.1.0 (Linux; U; Android 11; SM-A217M Build/RP1A.200720.012)"
 ::ffff:192.168.0.10 - - [18/Jul/2021:21:29:33 +0000] "POST /forum HTTP/1.1" 200 24 "-" "Dalvik/2.1.0 (Linux; U; Android 11; SM-A217M Build/RP1A.200720.012)"
 ::ffff:192.168.0.10 - - [18/Jul/2021:21:30:23 +0000] "PUT /forum HTTP/1.1" 200 29 "-" "Dalvik/2.1.0 (Linux; U; Android 11; SM-A217M Build/RP1A.200720.012)"
+::ffff:192.168.0.22 - - [18/Jul/2021:23:30:46 +0000] "POST /comment/insert HTTP/1.1" 200 32 "-" "PostmanRuntime/7.28.1"
+::ffff:192.168.0.22 - - [18/Jul/2021:23:32:38 +0000] "POST /comment/insert HTTP/1.1" 200 32 "-" "PostmanRuntime/7.28.1"

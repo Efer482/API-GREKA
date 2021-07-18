@@ -15,7 +15,7 @@ let spConsultComments   =   (req, res)  =>{
     connection.query(query, [id], (err, rows, fields) => {
         if(!err){
             console.log(id)
-            res.json(rows);
+            res.json(rows[0]);
         }else{
             console.log(err);
         }
