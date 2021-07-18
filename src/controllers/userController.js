@@ -89,9 +89,9 @@ let login = (req, res) =>{
 }
 
 let update = (req, res) =>{
-    const query = `CALL spUpdateUser(?, ?, ?, ?, ?, ?)`;
-    const { ID, CLAVE, EMAIL, NICKNAME, ENTRYDATE, ROL } = req.body;
-    connection.query(query, [ID, CLAVE, EMAIL, NICKNAME, ENTRYDATE, ROL], (err, rows, fields) => {
+    const query = `CALL spUpdateUser(?, ?, ?, ?)`;
+    const { ID, NICKNAME, EMAIL, CLAVE } = req.body;
+    connection.query(query, [ID, NICKNAME, EMAIL, CLAVE], (err, rows, fields) => {
         if(!err){
             res.json({Status: 'Usuario actualizado'})
         }else{
