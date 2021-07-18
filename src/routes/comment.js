@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const   {   insetComment,
+const   {   insertComment,
             updateComment,
             spConsultComments,
             deleteComment}   =   require("../controllers/commentController")
@@ -10,7 +10,7 @@ const   {   insetComment,
     /*===========================================
                 INSERTAR COMENTARIO
     ===========================================*/
-router.post('/insert', insetComment, (req, res) =>{
+router.post('/insert', insertComment, (req, res) =>{
 
 });
 

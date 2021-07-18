@@ -1,9 +1,9 @@
 const connection  = require('../database.js');
 
-let insetComment  =   (req, res)    =>{
-    const {ID, ID_BOOK, ID_USER, COMMENT} = req.body;
+let insertComment  =   (req, res)    =>{
+    const {ID_BOOK, ID_USER, COMMENT, RATING} = req.body;
     const query = `CALL spInsertComments(?, ?, ?, ?)`;
-    connection.query(query, [ID, ID_BOOK, ID_USER, COMMENT], (err, rows, fields) => {
+    connection.query(query, [ID_BOOK, ID_USER, COMMENT, RATING], (err, rows, fields) => {
         if(err) throw err
             res.json({Status: 'Comentario agregado'})
     });
@@ -47,7 +47,7 @@ let deleteComment   =   (req, res)  =>{
     })
 }
 module.exports  =   {
-    insetComment,
+    insertComment,
     updateComment,
     spConsultComments,
     deleteComment
