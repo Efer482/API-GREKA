@@ -85,14 +85,9 @@ let login = (req, res) =>{
     setTimeout(() =>{
             jwt.sign({user: login.user}, 'secretkey', /*{expiresIn: '32s'},*/ (err, token) =>{
         res.json({
-<<<<<<< HEAD
             token
         }
 )
-=======
-            token:  token
-        })
->>>>>>> 4373251b2fe88bf4dd7fc37daf7ea36348a1c386
     })
     }, 1000)
 }
