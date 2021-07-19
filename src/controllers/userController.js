@@ -59,16 +59,16 @@ let signUpIMG   = (req, res) =>{
     const query = 'CALL spInsertIMG(?, ?,)';
     connection.query(query, [ID, PROFILE_IMG], (err, rows, fields) =>{
         if(!err){
-            res.json({Status: 'Imagen agregada'})
+            res.json({Status: 'Imagen agregada'});
         }else{
-            res.json({Status: 'error'})
+            res.json({Status: 'error'});
         }
         console.log(err);
-    })
+    });
     upload.single('file')
     
     res.json(req.file)
-}
+};
 
 let login = (req, res) =>{
     let user;
@@ -76,21 +76,20 @@ let login = (req, res) =>{
     const { email, clave } = req.body;
     connection.query(query, [email, clave], (err, rows, fields) => {
         if(!err){
-            login.user = rows[0]
+            login.user = (rows);
             
         }else{
             console.log(err);
         }
-    })
+    });
     setTimeout(() =>{
             jwt.sign({user: login.user}, 'secretkey', /*{expiresIn: '32s'},*/ (err, token) =>{
         res.json({
             token
-        }
-)
-    })
+        });
+    });
     }, 1000)
-}
+};
 
 let update = (req, res) =>{
     const query = `CALL spUpdateUser(?, ?, ?, ?)`;

@@ -2,20 +2,33 @@ const conection = require('../database');
 
 // funcion que muestra todos los comentarios del foro
 let consultComments = (req, res) => {
+    const {idForum} = req.params;
+    const query = 'CALL spConsultCommentForum(?)';
+    conection.query(query, [idForum], (err, rows, fields) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(rows);
+        }
+    });
+};
+
+let nameUser = (req, res) => {
     const {id} = req.params;
     const query = 'CALL spConsultCommentForum(?)';
     conection.query(query, [id], (err, rows, fields) => {
         if (err) {
             console.log(err);
         } else {
-            res.json(rows[0]);
+            res.json(rows);
         }
     });
 };
 
 // funcion que crea un comentario
 let insertComment = (req, res) => {
-    const {idForum, comment, idUser} = req.body;
+    const {idForum} = req.params;
+    const {comment, idUser} = req.body;
     const query = 'CALL spInsertCommentForum(?, ?, ?)';
     conection.query(query, [idForum, comment, idUser], (err, rows, fields) => {
         if (err) {
@@ -57,6 +70,7 @@ let deleteComment = (req, res) => {
 module.exports = {
     insertComment,
     consultComments,
+    nameUser,
     updateComment,
     deleteComment
 };
