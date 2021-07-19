@@ -30,10 +30,10 @@ let consultUser = (req, res) => {
 }
 
 let signUp = (req, res) =>{
-    const query = `CALL spInsertUser(?, ?, ?, ?, ?, ?, ?)`;
-    const {CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL } = req.body;
+    const query = `CALL spInsertUser(?, ?, ?, ?, ?)`;
+    const {CLAVE, EMAIL, NICKNAME, ENTRYDATE, ROL } = req.body;
     var USER_ID;
-    connection.query(query, [CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL], (err, rows, fields) => {
+    connection.query(query, [CLAVE, EMAIL, NICKNAME, ENTRYDATE, ROL], (err, rows, fields) => {
         if(!err){
             USER_ID = rows[0]
             res.json({Status: 'Usuario agregado'})
@@ -56,7 +56,7 @@ let signUpIMG   = (req, res) =>{
     if(!PROFILE_IMG){
         PROFILE_IMG =   "PROFILE_DEFAULT.jpg";
     }
-    const query = `CALL 	spInsertIMG(?, ?,)`;
+    const query = 'CALL spInsertIMG(?, ?,)';
     connection.query(query, [ID, PROFILE_IMG], (err, rows, fields) =>{
         if(!err){
             res.json({Status: 'Imagen agregada'})
@@ -73,7 +73,7 @@ let signUpIMG   = (req, res) =>{
 let login = (req, res) =>{
     let user;
     const query = `CALL spLoginUser(?, ?)`;
-    const { email, clave } = req.params;
+    const { email, clave } = req.body;
     connection.query(query, [email, clave], (err, rows, fields) => {
         if(!err){
             login.user = rows[0]
@@ -85,17 +85,22 @@ let login = (req, res) =>{
     setTimeout(() =>{
             jwt.sign({user: login.user}, 'secretkey', /*{expiresIn: '32s'},*/ (err, token) =>{
         res.json({
+<<<<<<< HEAD
             token
         }
 )
+=======
+            token:  token
+        })
+>>>>>>> 4373251b2fe88bf4dd7fc37daf7ea36348a1c386
     })
     }, 1000)
 }
 
 let update = (req, res) =>{
-    const query = `CALL spUpdateUser(?, ?, ?, ?, ?, ?, ?, ?)`;
-    const { ID, CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL } = req.body;
-    connection.query(query, [ID, CLAVE, EMAIL, NICKNAME, NAME, APELLIDO, DATA, ROL], (err, rows, fields) => {
+    const query = `CALL spUpdateUser(?, ?, ?, ?)`;
+    const { ID, NICKNAME, EMAIL, CLAVE } = req.body;
+    connection.query(query, [ID, NICKNAME, EMAIL, CLAVE], (err, rows, fields) => {
         if(!err){
             res.json({Status: 'Usuario actualizado'})
         }else{
