@@ -73,7 +73,7 @@ let signUpIMG   = (req, res) =>{
 let login = (req, res) =>{
     let user;
     const query = `CALL spLoginUser(?, ?)`;
-    const { email, clave } = req.params;
+    const { email, clave } = req.body;
     connection.query(query, [email, clave], (err, rows, fields) => {
         if(!err){
             user = rows[0]

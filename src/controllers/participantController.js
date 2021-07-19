@@ -26,5 +26,18 @@ let deleteParticipant = (req, res) => {
     });
 };
 
+// funcion que actualiza a los participantes
+let updateParticipant = (req, res) => {
+    const {id} = req.params;
+    const query = 'CALL spUpdateParticipantForum(?)';
+    conection.query(query, [id], (err, rows, fields) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({status: 'Participante actualizado'});
+        }
+    });
+};
+
 // permite que las funciones sean llamadas desde otro archivo
-module.exports = {insertParticipant, deleteParticipant};
+module.exports = {insertParticipant, deleteParticipant, updateParticipant};
