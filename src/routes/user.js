@@ -19,9 +19,7 @@ router.post('/signup/img', signUpIMG,(req, res) =>{
     
 });
 
-router.get('/login/:email/:clave', login, (req, res) =>{
-
-});
+router.get('/login', login, (req, res) =>{});
 
 router.post("/login/post", verifyToken, (req, res) =>{
     jwt.verify(req.token, 'secretkey', (err, authData) =>{
@@ -30,7 +28,7 @@ router.post("/login/post", verifyToken, (req, res) =>{
         }else{
             res.json({
                 mensaje: "Post",
-                authData: authData
+                authData
             })
         }
     });

@@ -5,12 +5,16 @@ const router = express.Router();
 const {
     insertComment,
     consultComments,
+    nameUser,
     updateComment,
     deleteComment
 } = require('../controllers/commentForumController');
 
-// trae todos los comentarios del foro
-router.get('/:id', consultComments, (req, res) => {});
+// trae el id del foro
+router.get('/forum/:idForum', consultComments, (req, res) => {});
+
+// tare el nombre de usuario
+router.get('/nameUser/:id', nameUser, (req, res) => {});
 
 // crea un comentario
 router.post('/', insertComment, (req, res) => {});
