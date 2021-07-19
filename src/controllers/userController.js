@@ -1,7 +1,7 @@
 const jwt           = require('jsonwebtoken');
 const connection    = require('../database.js');
 const multer = require('multer');
-
+let user;
 const storage = multer.diskStorage({
     destination: 'uploads/users',
     filename: function(req, file, cb){
@@ -69,23 +69,27 @@ let signUpIMG   = (req, res) =>{
     
     res.json(req.file)
 }
+
 let login = (req, res) =>{
     let user;
     const query = `CALL spLoginUser(?, ?)`;
     const { email, clave } = req.params;
     connection.query(query, [email, clave], (err, rows, fields) => {
         if(!err){
-            user = rows[0]
+            login.user = rows[0]
+            
         }else{
             console.log(err);
         }
     })
-    jwt.sign({user: user}, 'secretkey', /*{expiresIn: '32s'},*/ (err, token) =>{
+    setTimeout(() =>{
+            jwt.sign({user: login.user}, 'secretkey', /*{expiresIn: '32s'},*/ (err, token) =>{
         res.json({
-            token:  token
+            token
         }
 )
     })
+    }, 1000)
 }
 
 let update = (req, res) =>{
@@ -110,7 +114,7 @@ function verifyToken(req, res, next){
     const bearerHeader  =   req.headers['authorization'];
 
     if(typeof bearerHeader !== 'undefined'){
-        const token  =   bearerHeader.split(" ")[1];
+        const token  =   bearerHeader.split(" ")[0];
         req.token = token;
         next();
     }else{

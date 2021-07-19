@@ -30,7 +30,7 @@ router.post("/login/post", verifyToken, (req, res) =>{
         }else{
             res.json({
                 mensaje: "Post",
-                authData: authData
+                authData
             })
         }
     })
