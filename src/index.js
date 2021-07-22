@@ -5,6 +5,13 @@ const fs = require("fs"); //Requerir "file-system", dependencia la cual simplifi
 const path = require("path"); //Modulo path, viene preinstalado con node.js y es parte de la navegacion de archivos
 const pdfGenerator = require("pdfkit");
 
+// Variables de tiempo.
+var currentDate = new Date();
+var date = currentDate.getFullYear()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getDate()
+var time = currentDate.getHours() + "-" + currentDate.getMinutes() + "-" + currentDate.getSeconds();
+var dateTime = date + "_" + time;
+const logPath = "./logs/log_" + dateTime + ".pdf";
+
 // version de la api
 const vs = '/api/v1/';
 
@@ -15,8 +22,8 @@ app.use(express.json());	// que reconozca los json
 let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: "a"})
 
 //Si existe el log. Eliminarlo.
-if (fs.existsSync(__dirname + "./logs/log.pdf")) {
-  fs.unlink(__dirname + "./logs/log.pdf", (err) => {
+if (fs.existsSync("./logs/log.pdf")) {
+  fs.unlink("./logs/log.pdf", (err) => {
     if (err) throw err;
     console.log(__dirname + "./logs/log.pdf fue borrado exitosamente"); // Mostrar en consola que fue exitoso borrar el archivo
   });
@@ -24,6 +31,10 @@ if (fs.existsSync(__dirname + "./logs/log.pdf")) {
 
 
 let theOutput = new pdfGenerator();
+
+theOutput.pipe(fs.createWriteStream(logPath));
+theOutput.text("Requests\n");
+theOutput.end();
 
 //"combined" da un output log detallado. A diferencia de otras opciones como "dev" que son mas concizas | "stream:accessLogStream" da output a la variable "accessLogStream".
 app.use(morgan("combined", {stream:accessLogStream}));
@@ -80,23 +91,23 @@ process.on("SIGINT", function () {
       return;
     }
 
-		logData = data.toString();
-
+    logData = data.toString();
+    /*
     theOutput.pipe(fs.createWriteStream("./logs/log.pdf"));
-		theOutput.text("Requests\n");
-		theOutput.text(logData);
-    theOutput.end();
+    theOutput.text("Requests\n");
+    theOutput.text(logData);
+    theOutput.end();*/
 
+    console.log(logData);
+    console.log("\n")
     console.log(data); // Mostrar en consola todos los logs
+
+    //Borrar archivo access.log
+    fs.unlink(__dirname + "/access.log", (err) => {
+      if (err) throw err;
+      console.log(__dirname + "/access.log fue borrado exitosamente"); // Mostrar en consola que fue exitoso borrar el archivo
+    });
   });
-
-
-	//Borrar archivo access.log
-  fs.unlink(__dirname + "/access.log", (err) => {
-    if (err) throw err;
-    console.log(__dirname + "/access.log fue borrado exitosamente"); // Mostrar en consola que fue exitoso borrar el archivo
-  });
-
 
 
 });
