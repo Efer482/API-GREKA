@@ -67,9 +67,9 @@ let updateForum = (req, res) => {
 
 // funcion que elimina un foro
 let deleteForum = (req, res) => {
-    const {id} = req.params;
+    const {comment} = req.params;
     const query = 'CALL spDeleteForum(?)';
-    conection.query(query, [id], (err, rows, fields) => {
+    conection.query(query, [comment], (err, rows, fields) => {
         if (err){
             console.log(err);
         } else {

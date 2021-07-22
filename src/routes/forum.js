@@ -25,7 +25,7 @@ router.get('/user/:id', consultForumUser, (req, res) => {});
 router.put('/', updateForum, (req, res) => {});
 
 // elimina un foro
-router.delete('/:id', deleteForum, (req, res) => {});
+router.delete('/:comment', deleteForum, (req, res) => {});
 
 // permite que el archivo sea llamado desde otro archivo
 module.exports = router;

@@ -10,13 +10,13 @@ const {
 } = require('../controllers/commentForumController');
 
 // trae los comentarios del foro
-router.get('/:idForum', consultComments, (req, res) => {});
+router.get('/', consultComments, (req, res) => {});
 
 // crea un comentario
 router.post('/:idForum', insertComment, (req, res) => {});
 
 // edita un comentario
-router.put('/:id', updateComment, (req, res) => {});
+router.put('/:comment', updateComment, (req, res) => {});
 
 // elimina un comentario
 router.delete('/:comment', deleteComment, (req, res) => {});
