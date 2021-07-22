@@ -73,7 +73,7 @@ let signUpIMG   = (req, res) =>{
 let login = (req, res) =>{
     let user;
     const query = `CALL spLoginUser(?, ?)`;
-    const { email, clave } = req.body;
+    const { email, clave } = req.params;
     connection.query(query, [email, clave], (err, rows, fields) => {
         if(!err){
             login.user = (rows);
@@ -110,7 +110,7 @@ let update = (req, res) =>{
 // Authorization: Bearer <token>
 
 function verifyToken(req, res, next){
-    const bearerHeader  =   req.headers['authorization'];
+    const bearerHeader  =  req.headers['authorization'];
 
     if(typeof bearerHeader !== 'undefined'){
         const token  =   bearerHeader.split(" ")[0];
