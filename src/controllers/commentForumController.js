@@ -8,19 +8,7 @@ let consultComments = (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.json(rows);
-        }
-    });
-};
-
-let nameUser = (req, res) => {
-    const {id} = req.params;
-    const query = 'CALL spConsultCommentForum(?)';
-    conection.query(query, [id], (err, rows, fields) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(rows);
+            res.json(rows[0]);
         }
     });
 };
@@ -55,9 +43,9 @@ let updateComment = (req, res) => {
 
 // funcion que elimina un comentario
 let deleteComment = (req, res) => {
-    const {id} = req.params;
+    const {comment} = req.params;
     const query = 'CALL spDeleteCommentForum(?)';
-    conection.query(query, [id], (err, rows, fields) => {
+    conection.query(query, [comment], (err, rows, fields) => {
         if (err) {
             console.log(err);
         } else {
@@ -70,7 +58,6 @@ let deleteComment = (req, res) => {
 module.exports = {
     insertComment,
     consultComments,
-    nameUser,
     updateComment,
     deleteComment
 };
